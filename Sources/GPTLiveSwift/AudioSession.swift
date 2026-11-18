@@ -12,7 +12,7 @@ public enum LiveAudioSession {
         default: allowed = false
         }
         guard allowed else {
-            throw LiveError.message("Enable Live2D Avatar in System Settings → Privacy & Security → Microphone, then try again.")
+            throw LiveError.message("Enable LivAvatar in System Settings → Privacy & Security → Microphone, then try again.")
         }
     }
 }

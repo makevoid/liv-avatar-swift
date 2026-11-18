@@ -76,7 +76,7 @@ def main():
         environment = dict(os.environ, PRIVATE_ASSETS_DIR=str(assets))
         subprocess.run(['bash', str(ROOT / 'scripts/build.sh')], cwd=ROOT, env=environment, check=True)
         if args.launch:
-            subprocess.run(['open', str(ROOT / 'build/Live2D Avatar Private.app')], check=True)
+            subprocess.run(['open', str(ROOT / 'build/LivAvatar Private.app')], check=True)
     print('Private assets loaded locally. No files were uploaded; profiles are not bundled.')
     print('The existing checkout is reused on later runs. Pull updates inside local-assets/private when needed.')
 

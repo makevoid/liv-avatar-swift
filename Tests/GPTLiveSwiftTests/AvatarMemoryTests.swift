@@ -1,11 +1,32 @@
 import Foundation
 import Testing
-import AvatarBehavior
+@testable import AvatarBehavior
 import GPTLiveSwift
 
 struct AvatarMemoryTests {
     private func location() -> URL {
         FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    }
+
+    @Test func appRenamePreservesExistingMemoriesAndPrefersNewStore() throws {
+        let support = location()
+        defer { try? FileManager.default.removeItem(at: support) }
+        let directory = support.appendingPathComponent("LivAvatar")
+        let legacyDirectory = support.appendingPathComponent("Live2DAvatar")
+        #expect(AvatarMemory.defaultDirectory(in: support) == directory)
+        #expect(!FileManager.default.fileExists(atPath: support.path))
+
+        let legacy = try AvatarMemory(persona: .haru, directory: legacyDirectory)
+        let legacyFact = try legacy.remember("Keep this fact after the app rename.")
+        let legacyData = try Data(contentsOf: legacy.url)
+        let existing = try AvatarMemory(persona: .haru, directory: AvatarMemory.defaultDirectory(in: support))
+        #expect(existing.entries == [legacyFact])
+
+        let current = try AvatarMemory(persona: .haru, directory: directory)
+        let currentFact = try current.remember("Use the new store when both exist.")
+        let reloaded = try AvatarMemory(persona: .haru, directory: AvatarMemory.defaultDirectory(in: support))
+        #expect(reloaded.entries == [currentFact])
+        #expect(try Data(contentsOf: legacy.url) == legacyData)
     }
 
     @Test func persistenceDeduplicationDeletionAndPrivatePermissions() throws {

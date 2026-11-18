@@ -1,9 +1,13 @@
 # Memory and delegation
 
 Each configured persona has an independent YAML file in
-`~/Library/Application Support/Live2DAvatar/`. Haru uses `haru.yaml`; the previous
+`~/Library/Application Support/LivAvatar/`. Haru uses `haru.yaml`; the previous
 private personas used `rei.yaml` and `poldo.yaml`. The model cannot select a memory
 owner or filesystem path through tool arguments. Switching characters stops voice.
+
+Existing installations use the previous `~/Library/Application Support/Live2DAvatar/`
+directory when it exists and `LivAvatar/` does not. If both exist, `LivAvatar/` wins;
+the app does not merge or move saved files.
 
 A file holds at most 50 facts, each 500 characters / 1,000 UTF-8 bytes; total size is
 limited to 64 KiB. Writes are atomic and file/directory permissions are owner-only.

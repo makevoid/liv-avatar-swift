@@ -20,8 +20,18 @@ public final class AvatarMemory {
     }
 
     public static var defaultDirectory: URL {
-        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Live2DAvatar")
+        defaultDirectory(in: FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0])
+    }
+
+    static func defaultDirectory(in applicationSupport: URL) -> URL {
+        let directory = applicationSupport.appendingPathComponent("LivAvatar")
+        let legacyDirectory = applicationSupport.appendingPathComponent("Live2DAvatar")
+        // Keep existing saved facts accessible after the app rename without moving user data.
+        if !FileManager.default.fileExists(atPath: directory.path),
+           FileManager.default.fileExists(atPath: legacyDirectory.path) {
+            return legacyDirectory
+        }
+        return directory
     }
 
     public let persona: AvatarPersona

@@ -10,9 +10,9 @@ export SWIFTPM_MODULECACHE_OVERRIDE="$CLANG_MODULE_CACHE_PATH"
 configuration="${CONFIGURATION:-debug}"
 swift build -c "$configuration" --cache-path "$PWD/.build/cache" --disable-sandbox
 bin="$(swift build -c "$configuration" --cache-path "$PWD/.build/cache" --disable-sandbox --show-bin-path)"
-app="$PWD/build/Live2D Avatar.app"
+app="$PWD/build/LivAvatar.app"
 if [[ -n "${PRIVATE_ASSETS_DIR:-}" ]]; then
-  app="$PWD/build/Live2D Avatar Private.app"
+  app="$PWD/build/LivAvatar Private.app"
   for model in live2d_model live2d_model_creature; do
     if [[ ! -d "$PRIVATE_ASSETS_DIR/$model" ]]; then
       echo "Missing private model: $PRIVATE_ASSETS_DIR/$model" >&2
@@ -24,10 +24,10 @@ mkdir -p "$app/Contents/MacOS"
 # Always rebuild resources so an earlier custom/private model cannot leak into this bundle.
 rm -rf "$app/Contents/Resources"
 mkdir -p "$app/Contents/Resources/Shaders" "$app/Contents/Resources/Licenses" "$app/Contents/Frameworks"
-cp "$bin/Live2DAvatar" "$app/Contents/MacOS/Live2DAvatar"
+cp "$bin/LivAvatar" "$app/Contents/MacOS/LivAvatar"
 cp App/Info.plist "$app/Contents/Info.plist"
 if [[ -n "${PRIVATE_ASSETS_DIR:-}" ]]; then
-  /usr/libexec/PlistBuddy -c 'Set :Live2DDefaultModel live2d_model' "$app/Contents/Info.plist"
+  /usr/libexec/PlistBuddy -c 'Set :LivAvatarDefaultModel live2d_model' "$app/Contents/Info.plist"
 fi
 cp App/AppIcon.icns "$app/Contents/Resources/AppIcon.icns"
 framework="$PWD/.build/artifacts/webrtc/WebRTC/WebRTC.xcframework/macos-x86_64_arm64/WebRTC.framework"

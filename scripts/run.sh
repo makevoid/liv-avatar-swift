@@ -2,4 +2,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 ./scripts/build.sh
-open "build/Live2D Avatar.app"
+open "build/LivAvatar.app"

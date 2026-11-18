@@ -125,7 +125,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTe
         let menu = NSMenu()
         let item = NSMenuItem(); menu.addItem(item)
         let appMenu = NSMenu(); item.submenu = appMenu
-        appMenu.addItem(withTitle: "Quit Live2D Avatar", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appMenu.addItem(withTitle: "Quit LivAvatar", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         let editItem = NSMenuItem(title: "Edit", action: nil, keyEquivalent: ""); menu.addItem(editItem)
         let editMenu = NSMenu(title: "Edit"); editItem.submenu = editMenu
         editMenu.addItem(withTitle: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
@@ -448,7 +448,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTe
     }
 
     func refreshModelControls() {
-        window.title = "Live2D Avatar · \(renderer.modelName)"
+        window.title = "LivAvatar · \(renderer.modelName)"
         chatWindow?.subtitle = renderer.avatar?.persona.name ?? renderer.modelName
         avatarPicker.selectedSegment = renderer.avatar.flatMap { availableAvatars.firstIndex(of: $0) } ?? -1
         modelLabel.stringValue = renderer.avatar?.persona.name ?? renderer.modelName
@@ -696,7 +696,7 @@ extension AppDelegate {
         let chat = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 540, height: 650),
             styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
         chatWindow = chat
-        chat.title = "Live2D Avatar · Chat"
+        chat.title = "LivAvatar · Chat"
         chat.subtitle = renderer.avatar?.persona.name ?? renderer.modelName
         chat.minSize = NSSize(width: 380, height: 400)
         chat.appearance = window.appearance
@@ -1543,7 +1543,7 @@ func resourceDirectory() -> URL {
         .deletingLastPathComponent().deletingLastPathComponent()
     return Bundle.main.bundleURL.pathExtension == "app"
         ? Bundle.main.resourceURL!
-        : project.appendingPathComponent("build/Live2D Avatar.app/Contents/Resources")
+        : project.appendingPathComponent("build/LivAvatar.app/Contents/Resources")
 }
 
 func makeRenderer() throws -> AvatarRenderer {
@@ -1553,7 +1553,7 @@ func makeRenderer() throws -> AvatarRenderer {
     if let index = args.firstIndex(of: "--model"), args.indices.contains(index + 1) {
         model = URL(fileURLWithPath: args[index + 1], isDirectory: true)
     } else {
-        let preferred = Bundle.main.object(forInfoDictionaryKey: "Live2DDefaultModel") as? String
+        let preferred = Bundle.main.object(forInfoDictionaryKey: "LivAvatarDefaultModel") as? String
         let initialAvatar = BundledAvatar.available(in: resources).first { $0.directoryName == preferred } ?? .sample
         model = resources.appendingPathComponent(initialAvatar.directoryName)
     }

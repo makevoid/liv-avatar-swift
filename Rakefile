@@ -1,4 +1,4 @@
-desc "Build and launch Live2D Avatar"
+desc "Build and launch LivAvatar"
 task :run do
   sh "bash", File.join(__dir__, "scripts", "run.sh")
 end

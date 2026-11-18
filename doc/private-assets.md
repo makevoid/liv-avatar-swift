@@ -4,7 +4,8 @@ Maintain application code in this repository. Keep licensed models and personal
 reference profiles in a separate **private** repository that you control. No SDK,
 API credentials, recorded conversations, or saved-character YAML files belong there.
 The SDK is still installed through the official setup task. Existing character
-memories stay in `~/Library/Application Support/Live2DAvatar/`.
+memories stay in `~/Library/Application Support/LivAvatar/`, or the existing
+`Live2DAvatar/` directory as described in [memory and delegation](delegation.md).
 
 The optional personal integration expects this layout:
 
@@ -55,7 +56,7 @@ there deliberately. Nothing is uploaded automatically.
 rake private
 ```
 
-This builds and opens `build/Live2D Avatar Private.app`, with Rei selected at startup and Haru, Character/Rei,
+This builds and opens `build/LivAvatar Private.app`, with Rei selected at startup and Haru, Character/Rei,
 and Creature/Poldo in the selector. It does not modify original model assets.
 Prepared model copies belong only to that ignored personal app bundle.
 
@@ -69,7 +70,7 @@ rake private
 
 Use `python3 scripts/setup-private.py --no-build` to clone/link without building,
 or omit `--launch` for a build without opening the app. Public `./scripts/build.sh`
-continues to produce `build/Live2D Avatar.app` with Haru only. The two output bundles
+continues to produce `build/LivAvatar.app` with Haru only. The two output bundles
 are separate; don't redistribute the personal bundle containing licensed models.
 
 ## Release boundary

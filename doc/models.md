@@ -36,7 +36,7 @@ Build the application once, then prepare a local copy:
 ```sh
 mkdir -p local-assets/custom
 python3 scripts/prepare-model.py "/path/to/MyModel/runtime" "local-assets/custom/MyModel"
-"build/Live2D Avatar.app/Contents/MacOS/Live2DAvatar" \
+"build/LivAvatar.app/Contents/MacOS/LivAvatar" \
   --model "$PWD/local-assets/custom/MyModel"
 ```
 
@@ -95,7 +95,7 @@ them from a separate private repository without maintaining another application 
 For a local test of an unregistered model:
 
 ```sh
-MTL_DEBUG_LAYER=1 "build/Live2D Avatar.app/Contents/MacOS/Live2DAvatar" \
+MTL_DEBUG_LAYER=1 "build/LivAvatar.app/Contents/MacOS/LivAvatar" \
   --model "$PWD/local-assets/custom/MyModel" --smoke-test "$PWD/build/custom-verification"
 ```
 

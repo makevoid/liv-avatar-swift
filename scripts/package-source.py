@@ -41,18 +41,18 @@ def source_files():
 
 def main():
     files = list(source_files())
-    destination = ROOT / 'build/live2d-avatar-source.zip'
+    destination = ROOT / 'build/liv-avatar-source.zip'
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix('.tmp')
     manifest = {'sdkAndModelsIncluded': False, 'gitHistoryIncluded': False,
                 'files': {name: hashlib.sha256(data).hexdigest() for name, data in files}}
     with zipfile.ZipFile(temporary, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
         for name, data in files:
-            info = zipfile.ZipInfo('live2d-avatar/' + name)
+            info = zipfile.ZipInfo('liv-avatar/' + name)
             info.external_attr = (0o100755 if name.endswith(('.py', '.sh')) else 0o100644) << 16
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, data)
-        archive.writestr('live2d-avatar/SOURCE_MANIFEST.json', json.dumps(manifest, indent=2, sort_keys=True) + '\n')
+        archive.writestr('liv-avatar/SOURCE_MANIFEST.json', json.dumps(manifest, indent=2, sort_keys=True) + '\n')
     temporary.replace(destination)
     print(f'{destination}\n{len(files)} source/documentation files; no SDK, models, profiles, caches, bundles or Git history.')
 

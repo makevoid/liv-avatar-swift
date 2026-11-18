@@ -2,10 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "Live2DAvatar",
+    name: "LivAvatar",
     platforms: [.macOS(.v14)],
     products: [
-        .executable(name: "Live2DAvatar", targets: ["Live2DAvatar"]),
+        .executable(name: "LivAvatar", targets: ["LivAvatar"]),
         .library(name: "GPTLiveSwift", targets: ["GPTLiveSwift"])
     ],
     dependencies: [
@@ -15,7 +15,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "Live2DAvatar",
+            name: "LivAvatar",
             dependencies: ["GPTLiveSwift", "AvatarBehavior", .product(name: "Cubism", package: "swift-cubism")],
             swiftSettings: [.swiftLanguageMode(.v5)],
             linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"])]

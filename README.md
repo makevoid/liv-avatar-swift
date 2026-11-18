@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/21f560c2-8363-4061-986a-7a6d3fb3e62e" width="128" alt="Live2D Avatar app icon">
+  <img src="https://github.com/user-attachments/assets/21f560c2-8363-4061-986a-7a6d3fb3e62e" width="128" alt="LivAvatar app icon">
 </p>
 
-<h1 align="center">Live2D Avatar for macOS</h1>
+<h1 align="center">LivAvatar - MacOS AI Assistant powered by Live2D</h1>
 
 <p align="center">
-  A native Swift companion with a Live2D avatar, Metal rendering, optional voice
+  A native macOS AI assistant built in Swift with a Live2D avatar, Metal rendering, optional voice
   conversation, and persistent character memory.<br>
   No browser renderer or separate application server is required.
 </p>
@@ -55,8 +55,8 @@ Requires macOS 14+, a Metal-capable Mac, Swift 6.1+ and Python 3
 [Haru sample terms](https://www.live2d.com/en/learn/sample/haru/) first.
 
 ```sh
-git clone https://github.com/makevoid/live2d-avatar-swift.git
-cd live2d-avatar-swift
+git clone https://github.com/makevoid/liv-avatar-swift.git
+cd liv-avatar-swift
 python3 scripts/setup.py --download --accept-live2d-licenses   # SDK + Haru, pinned and verified
 ./scripts/run.sh                                               # build and open the app
 ```
@@ -132,8 +132,8 @@ ARM64 and x86_64; Intel execution has not been verified here.
 Start in the extracted source folder or clone this clean application repository:
 
 ```sh
-git clone https://github.com/makevoid/live2d-avatar-swift.git
-cd live2d-avatar-swift
+git clone https://github.com/makevoid/liv-avatar-swift.git
+cd liv-avatar-swift
 ```
 
 ### 1. Obtain the SDK and default model
@@ -168,7 +168,7 @@ See [installation details](doc/installation.md) for paths and troubleshooting.
 ```
 
 The first build downloads WebRTC and Yams through SwiftPM. The result is
-`build/Live2D Avatar.app`, locally ad-hoc signed. Double-click it in Finder on
+`build/LivAvatar.app`, locally ad-hoc signed. Double-click it in Finder on
 subsequent launches. It is not notarized.
 
 ```sh
@@ -236,10 +236,13 @@ See [voice and privacy](doc/voice.md) for credential handling, data flow and lim
 
 ## Memory that survives sessions
 
-Explicit facts live in `~/Library/Application Support/Live2DAvatar/haru.yaml`
+Explicit facts live in `~/Library/Application Support/LivAvatar/haru.yaml`
 (and separate files for other configured characters). They are local, unencrypted,
 owner-readable YAML. Each voice Start reloads them into both voice and backend
 context; confirmed changes refresh recall during the session.
+
+Existing installations continue using `~/Library/Application Support/Live2DAvatar/`
+when it exists and the new `LivAvatar/` directory does not, preserving saved facts.
 
 The app optionally reads `memory_data/mem_private.md`, falling back to
 `mem_public.md` in the source checkout. Neither is bundled by the build script.
@@ -264,7 +267,7 @@ project (`.cmo3`) or a VTube Studio settings file alone is not enough.
 ```sh
 mkdir -p local-assets/custom
 python3 scripts/prepare-model.py "/path/to/MyModel/runtime" "local-assets/custom/MyModel"
-"build/Live2D Avatar.app/Contents/MacOS/Live2DAvatar" \
+"build/LivAvatar.app/Contents/MacOS/LivAvatar" \
   --model "$PWD/local-assets/custom/MyModel"
 ```
 
@@ -282,7 +285,7 @@ PRIVATE_ASSETS_REPO=git@github.com:YOUR_ACCOUNT/YOUR_PRIVATE_ASSETS.git rake pri
 ```
 
 This clones into ignored `local-assets/private/`, validates both models, links local
-reference profiles, and opens `build/Live2D Avatar Private.app` with Rei selected.
+reference profiles, and opens `build/LivAvatar Private.app` with Rei selected.
 Later, `rake private`
 reuses that checkout. Git authentication must already grant access to the private repo.
 The ordinary build still produces the Haru app. Neither build bundles profiles, and
@@ -301,7 +304,7 @@ needed. Opt-in live API tests are separate and billed.
 
 The app has three main layers:
 
-- `Sources/Live2DAvatar/`: AppKit UI, Metal rendering, model loading and GPU checks.
+- `Sources/LivAvatar/`: AppKit UI, Metal rendering, model loading and GPU checks.
 - `Sources/AvatarBehavior/`: personas, emotions, transcripts and persistent memory.
 - `Sources/GPTLiveSwift/`: native WebRTC, session lifecycle and Responses delegation.
 
@@ -316,7 +319,7 @@ Before sharing source, run:
 python3 scripts/package-source.py
 ```
 
-This creates an audited source-only ZIP under `build/`. It excludes downloaded SDKs,
+This creates an audited source-only ZIP at `build/liv-avatar-source.zip`. It excludes downloaded SDKs,
 models, bundles, credentials, profiles and Git history even after a local build.
 Do not upload the whole working directory or your locally built app as source.
 
